@@ -142,7 +142,11 @@ const Write = () => {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div style={{ height: 'calc(100% - 4rem)', paddingBottom: '4rem' }}>
         <TitleInput placeholder="제목을 입력하세요" value={title} onChange={handleChangeTitle} />
-        <TagSelect onChange={handleChangeTag} placeholder={'태그를 선택하세요'}></TagSelect>
+        <TagSelect onChange={handleChangeTag} placeholder={'태그를 선택하세요'}>
+          {tagList.map(tag => {
+            return <option key={tag}>{tag}</option>;
+          })}
+        </TagSelect>
         <Editor onChange={handleChangeContent} placeholder="내용을 입력하세요" />/
       </div>
       <BottomSheet>

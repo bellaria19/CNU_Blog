@@ -87,7 +87,7 @@ const Post = () => {
   };
 
   const requestDeletePostById = async () => {
-    await deletePostById(postId);
+    await deletePostById(postId ?? '');
     navigate('/');
   };
 
