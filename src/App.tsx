@@ -4,21 +4,21 @@ import Home from './pages/Home';
 import Layout from './pages/Layout';
 import Post from './pages/Post';
 import Resume from './pages/Resume';
-import Write from './pages/Write';
 import Header from './components/Header';
+import Write from './pages/Write.tsx';
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.DEV ? '/' : '/CNU_Blog/'}>
       <Routes>
         <Route element={<Header />}>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/resume" element={<Resume />} />
           </Route>
-          {/*todo (3-3) Post 추가*/}
+          <Route path="/post/:postId/:key" element={<Post />} />
         </Route>
-        {/*todo (5-1) Write 추가*/}
+        <Route path="/write" element={<Write />} />
       </Routes>
     </Router>
   );

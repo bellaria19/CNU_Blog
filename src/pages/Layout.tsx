@@ -13,9 +13,11 @@ const Nav = styled.div`
   font-weight: 600;
   margin: auto;
   padding-top: 20px;
+
   a {
     color: #777;
   }
+
   .active {
     color: rgb(50, 148, 248);
   }
@@ -58,16 +60,21 @@ const Layout = () => {
   return (
     <div>
       <Profile>
-        {/*todo (1) 프로필 꾸미기*/}
         <div>
-          <ProfilePicture src="" alt="프로필 사진" />
+          <ProfilePicture
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzpJmJs2S3xDi36hASskz2EmLZsQpPV_VnQA&usqp=CAU"
+            alt="프로필 사진"
+          />
         </div>
         <div>
-          <Name>이름</Name>
-          <Description>설명</Description>
+          <Name>햄스터</Name>
+          <Description>동물</Description>
         </div>
       </Profile>
-      <Nav>{/*todo (2) 메뉴 작성*/}</Nav>
+      <Nav>
+        <NavLink to="/">포스트</NavLink>
+        <NavLink to="/resume">소개</NavLink>
+      </Nav>
       <Outlet />
     </div>
   );

@@ -1,8 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { TAG } from '../api/types.ts';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPost, getPostById, updatePostById } from '../api';
-import { TAG } from '../api/types';
 
 const TitleInput = styled.input`
   display: block;
@@ -85,12 +85,72 @@ const SaveButton = styled.button`
 `;
 
 const Write = () => {
-  // todo (5) 게시글 작성 페이지 만들기
+  const [title, setTitle] = useState('');
+  const [contents, setContent] = useState('');
+  const [tag, setTag] = useState<TAG>(TAG.REACT);
+  const tagList = Object.keys(TAG);
+  const { state } = useLocation();
+  const isEdit = state?.postId;
+  const navigate = useNavigate();
+
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value);
+  };
+  const handleChangeTag = (event: ChangeEvent<HTMLSelectElement>) => {
+    setTag(event.target.value as TAG);
+  };
+
+  const fetehPostById = async (postId: string) => {
+    const { data } = await getPostById(postId);
+    const { post } = data;
+    setTitle(post.title);
+    setContent(post.contents);
+    setTag(post.tag);
+  };
+
+  useEffect(() => {
+    if (isEdit) {
+      fetehPostById(state.postId);
+    }
+  }, []);
+
+  const requestCreatePost = async () => {
+    await createPost(title, contents, tag);
+  };
+
+  const requestUpdatePost = async () => {
+    await updatePostById(state.postId, title, contents, tag);
+  };
+
+  const clickConfirm = () => {
+    if (!title || !contents) {
+      alert('빈 값이 있습니다.');
+      return;
+    }
+    if (isEdit) {
+      requestUpdatePost();
+    } else {
+      requestCreatePost();
+    }
+    navigate('/');
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      나는 글쓰기
-      <div style={{ height: 'calc(100% - 4rem)', paddingBottom: '4rem' }}>{/*todo (5-2) 제목 / 태그 셀렉 / 내용 입력란 추가*/}</div>
-      <BottomSheet>{/*todo (5-3) 나가기, 저장하기 버튼 추가*/}</BottomSheet>
+      <div style={{ height: 'calc(100% - 4rem)', paddingBottom: '4rem' }}>
+        <TitleInput placeholder="제목을 입력하세요" value={title} onChange={handleChangeTitle} />
+        <TagSelect onChange={handleChangeTag} placeholder={'태그를 선택하세요'}></TagSelect>
+        <Editor onChange={handleChangeContent} placeholder="내용을 입력하세요" />/
+      </div>
+      <BottomSheet>
+        <Link to="/">
+          <ExitButton>나가기</ExitButton>
+        </Link>
+        <SaveButton onClick={clickConfirm}>저장하기</SaveButton>
+      </BottomSheet>
     </div>
   );
 };
