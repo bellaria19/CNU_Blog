@@ -67,8 +67,8 @@ const Layout = () => {
           />
         </div>
         <div>
-          <Name>햄스터</Name>
-          <Description>동물</Description>
+          <Name>이현재</Name>
+          <Description>키보드 사고싶다</Description>
         </div>
       </Profile>
       <Nav>
