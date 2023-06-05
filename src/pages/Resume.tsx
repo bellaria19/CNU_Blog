@@ -16,6 +16,14 @@ const Resume = () => {
         <p>2023.03 ~ </p>
         <p>Unity, C#</p>
       </div>
+      <div>
+        <h3>키보드 조립중</h3>
+        <img
+          src="https://i.ytimg.com/vi/fUZl3MJlvNI/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBEMUQqIcW-RpZquECyR8wjt7vDwQ"
+          alt="키보드 사진"
+        />
+        <p>빨리 오면 좋겠다</p>
+      </div>
     </div>
   );
 };
