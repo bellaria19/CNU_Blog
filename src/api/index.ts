@@ -30,7 +30,7 @@ export const getPostById = (id: string) => {
 export const updatePostById = (id: string, title: string, contents: string, tag: TAG) => {
   return instance.put(`/posts/${id}`, {
     title,
-    content,
+    contents,
     tag,
   });
 };
